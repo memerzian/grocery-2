@@ -2,10 +2,11 @@ from flask_smorest import Blueprint, abort
 from website.schemas import MealQueryArgsSchema, MealSchema
 from .models import Meal, Ingredient, Recipe, Unit
 from flask.views import MethodView
+from website.extensions.database import db
 
 blp = Blueprint(
     'meals', 'meals', url_prefix='/meals',
-    description='Operations on meals'
+    description='Operationz on meals'
 )
 
 @blp.route('/')
@@ -13,8 +14,9 @@ class Meals(MethodView):
     @blp.arguments(MealQueryArgsSchema, location='query')
     @blp.response(MealSchema(many=True))
     def get(self, args):
-        """List pets"""
-        return Meal.query.all()
+        """List meals"""
+        sql = db.session.query(Meal).all()
+        return sql
 
     @blp.arguments(MealSchema)
     @blp.response(MealSchema, code=201)
