@@ -6,7 +6,7 @@ from website.extensions.database import db
 
 blp = Blueprint(
     'meals', 'meals', url_prefix='/meals',
-    description='Operationz on meals'
+    description='Operations on meals'
 )
 
 @blp.route('/')
