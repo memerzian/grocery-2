@@ -3,3 +3,5 @@
 .flaskenv
 config.py
 *.pyc
+node_modules
+website/static/build

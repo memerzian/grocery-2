@@ -5,7 +5,7 @@ from flask.views import MethodView
 from website.extensions.database import db
 
 blp = Blueprint(
-    'meals', 'meals', url_prefix='/meals',
+    'meals', 'meals', url_prefix='/api/1/meals',
     description='Operations on meals'
 )
 
