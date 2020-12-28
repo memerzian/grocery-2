@@ -38,7 +38,7 @@ class Meals extends Component {
                         Meals
                     </h5>
                     <span className="col text-right">
-                        <button type="button" className="btn btn-light text-dark border" onClick={() => this.toggleCartModal()}>
+                        <button type="button" className="btn btn-light text-dark border bg-gray" onClick={() => this.toggleCartModal()}>
                             <Basket2 size="30"/>
                         </button>
                     </span>
