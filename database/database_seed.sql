@@ -27,4 +27,6 @@ INSERT INTO grc.meal(id, name, rating)
 	(12, 'Enchiladas', 5);
 	
 INSERT INTO grc.recipe(meal_id, ingredient_id, quantity)
-	VALUES (1, 1, 1);
+	VALUES (1, 1, 1),
+	(2, 1, 1);
+	
