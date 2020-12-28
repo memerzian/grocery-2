@@ -32,7 +32,7 @@ class Meals extends Component {
 
     render() {
         return <React.Fragment>
-            <div class="col">
+            <div className="col">
                 <div className="border-bottom py-2 d-flex flex-row align-items-center">
                     <h5 className="col">
                         Meals

@@ -19,7 +19,7 @@ class SideBar extends Component {
     render() {
         let collapseClass = this.state.isOpen ? "col-2" : "";
         return <React.Fragment>
-            <nav class={`navbar d-flex flex-column d-md-block navbar-light bg-light min-vh-100 border-right ${collapseClass}`}>
+            <nav className={`navbar d-flex flex-column d-md-block navbar-light bg-light min-vh-100 border-right ${collapseClass}`}>
                 <div className="d-flex align-items-end flex-column">
                     <button type="button" className="btn btn-light text-dark bg-gray" onClick={() => this.collapseSideBar()}>
                         {
@@ -30,25 +30,25 @@ class SideBar extends Component {
                     </button>
                 </div>
                 <div>
-                    <ul class="navbar-nav me-auto mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link">
+                    <ul className="navbar-nav me-auto mb-lg-0">
+                        <li className="nav-item">
+                            <a className="nav-link">
                                 <span>
                                     <Journal size="20" />
                                     {
                                         this.state.isOpen &&
-                                        <span class="ml-2">Ingredients</span>
+                                        <span className="ml-2">Ingredients</span>
                                     }
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link">
+                        <li className="nav-item">
+                            <a className="nav-link">
                                 <span>
                                     <Tag size="20" />
                                     {
                                         this.state.isOpen &&
-                                        <span class="ml-2">Units</span>
+                                        <span className="ml-2">Units</span>
                                     }
                                 </span>
                             </a>
