@@ -9,6 +9,7 @@
     "react": "^17.0.1",
     "react-bootstrap-icons": "^1.2.2",
     "react-dom": "^17.0.1",
+    "react-loader-spinner": "^3.1.14",
     "reactstrap": "^8.8.0",
     "webpack": "^5.11.0",
     "webpack-cli": "^4.2.0"

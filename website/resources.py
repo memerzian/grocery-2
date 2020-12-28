@@ -1,33 +1,34 @@
 from flask_smorest import Blueprint, abort
-from website.schemas import MealQueryArgsSchema, MealSchema
-from .models import Meal, Ingredient, Recipe, Unit
+from website.schemas import MealQueryArgsSchema, MealSchema, ListSchema, ListQueryArgsSchema
+from website.models import Meal, Ingredient, Recipe, Unit
 from flask.views import MethodView
 from website.extensions.database import db
+from website.utils.email import send_email
 
-blp = Blueprint(
+meal_blueprint = Blueprint(
     'meals', 'meals', url_prefix='/api/1/meals',
     description='Operations on meals'
 )
 
-@blp.route('/')
+@meal_blueprint.route('/')
 class Meals(MethodView):
-    @blp.arguments(MealQueryArgsSchema, location='query')
-    @blp.response(MealSchema(many=True))
+    @meal_blueprint.arguments(MealQueryArgsSchema, location='query')
+    @meal_blueprint.response(MealSchema(many=True))
     def get(self, args):
         """List meals"""
         sql = db.session.query(Meal).all()
         return sql
 
-    @blp.arguments(MealSchema)
-    @blp.response(MealSchema, code=201)
+    @meal_blueprint.arguments(MealSchema)
+    @meal_blueprint.response(MealSchema, code=201)
     def post(self, new_data):
         """Add a new meal"""
         item = Meal.create(**new_data)
         return item
 
-@blp.route('/<meal_id>')
+@meal_blueprint.route('/<meal_id>')
 class MealsById(MethodView):
-    @blp.response(MealSchema)
+    @meal_blueprint.response(MealSchema)
     def get(self, meal_id):
         """Get meal by ID"""
         try:
@@ -38,8 +39,8 @@ class MealsById(MethodView):
             abort(404, message='Item not found.')
         return item
 
-    @blp.arguments(MealSchema)
-    @blp.response(MealSchema)
+    @meal_blueprint.arguments(MealSchema)
+    @meal_blueprint.response(MealSchema)
     def put(self, update_data, meal_id):
         """Update existing meal"""
         try:
@@ -50,7 +51,7 @@ class MealsById(MethodView):
         item.commit()
         return item
 
-    @blp.response(code=204)
+    @meal_blueprint.response(code=204)
     def delete(self, meal_id):
         """Delete meal"""
         try:
@@ -58,5 +59,22 @@ class MealsById(MethodView):
         except LookupError:
             abort(404, message='Item not found.')
 
-def register_blueprints(api):
-    api.register_blueprint(blp)
+list_blueprint = Blueprint(
+    'lists', 'lists', url_prefix='/api/1/lists',
+    description='Operations on grocery lists'
+)
+
+@list_blueprint.route('/')
+class Lists(MethodView):
+    @meal_blueprint.arguments(ListSchema)
+    @meal_blueprint.response(ListSchema, code=201)
+    def post(self, list_data):
+        """Sends grocery list email to the recipient"""
+        send_email(**list_data)
+        return list_data
+
+blueprints = [meal_blueprint, list_blueprint]
+
+def register_blueprints(api, blueprints):
+    for blueprint in blueprints:
+        api.register_blueprint(blueprint)

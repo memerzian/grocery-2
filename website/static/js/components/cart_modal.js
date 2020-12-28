@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import { X } from 'react-bootstrap-icons';
 import {ModalHeader, ModalBody, ModalFooter, Modal} from 'reactstrap';
+import Loader from 'react-loader-spinner';
 
 class CartModal extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            groceryList: []
+            groceryList: [],
+            emailModalIsOpen: false
         }
     }
 
@@ -32,10 +34,14 @@ class CartModal extends Component {
             groceryList.push(groceryListDictionary[key]);
         }
 
-        debugger;
-
         this.setState({
             groceryList: groceryList
+        });
+    }
+
+    toggleEmailModal() {
+        this.setState({
+            emailModalIsOpen: !this.state.emailModalIsOpen
         });
     }
 
@@ -108,6 +114,16 @@ class CartModal extends Component {
                 </ModalBody>
                 <ModalFooter>
                     {
+                        this.state.groceryList.length > 0 &&
+                        <button 
+                            type="button"
+                            className="btn btn-info"
+                            onClick={() => this.toggleEmailModal()}
+                        >
+                            Email
+                        </button>
+                    }
+                    {
                         this.props.mealsInCart.length > 0 &&
                         <button 
                             type="button"
@@ -119,6 +135,107 @@ class CartModal extends Component {
                     }
                     <button type="button" className="btn btn-secondary" onClick={() => this.props.toggleModal()}>
                         Exit
+                    </button>
+                </ModalFooter>
+            </Modal>
+            <EmailModal 
+                mealsInCart={this.props.mealsInCart}
+                groceryList={this.state.groceryList}
+                isOpen={this.state.emailModalIsOpen}
+                toggleModal={() => this.toggleEmailModal()}
+            />
+        </React.Fragment>
+    } 
+}
+
+class EmailModal extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            recipient: "",
+            loading: false
+        }
+    }
+
+    sendEmail() {
+        this.setState({
+            loading: true
+        });
+
+        let meals = this.props.mealsInCart.map(object => ({...object}));
+        meals.forEach(meal => {
+            delete meal['id'];
+            delete meal['recipes'];
+        });
+
+        let body = {
+            "recipient": "mattemerzian@gmail.com",
+            "list_items": this.props.groceryList,
+            "meals": meals
+        }
+
+        fetch('api/1/lists/', {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+        .then(data => {
+            this.setState({
+                loading: false
+            });
+
+            this.props.toggleModal();
+        })
+    }
+
+    updateRecipient(value) {
+        this.setState({
+            recipient: value
+        });
+    }
+
+    render() {
+        return <React.Fragment>
+            <Modal size="md" isOpen={this.props.isOpen} toggle={() => this.props.toggleModal()}>
+                <ModalBody>
+                    {
+                        this.state.loading ?
+                        <Loader
+                            type="Puff"
+                            color="#00BFFF"
+                            height={100}
+                            width={100}
+                        /> :
+                        <div className="form-group">
+                            <label>Email address</label>
+                            <input 
+                                type="email" 
+                                className="form-control" 
+                                placeholder="name@gmail.com"
+                                value={this.state.recipient}
+                                onChange={(e) => this.updateRecipient(e.target.value)}
+                                onKeyPress={(e) => (e.key === 'Enter' ? this.sendEmail() : null)}
+                            />
+                        </div>
+                    }
+                </ModalBody>
+                <ModalFooter>
+                    {
+                        this.state.recipient.length > 0 && !this.state.loading &&
+                        <button 
+                            type="button"
+                            className="btn btn-info"
+                            onClick={() => this.sendEmail()}
+                        >
+                            Send
+                        </button>
+                    }
+                    <button type="button" className="btn btn-secondary" onClick={() => this.props.toggleModal()}>
+                        Cancel
                     </button>
                 </ModalFooter>
             </Modal>

@@ -20,6 +20,21 @@ class MealSchema(ma.Schema):
     rating = ma.fields.Integer()
     recipes = ma.fields.Nested('RecipeSchema', dump_only=True, many=True)
 
+class ListItemsSchema(ma.Schema):
+    name = ma.fields.String()
+    quantity = ma.fields.Integer()
+    unit = ma.fields.String()
+
+class ListSchema(ma.Schema):
+    recipient = ma.fields.String()
+    meals = ma.fields.Nested('MealSchema', many=True)
+    list_items = ma.fields.Nested('ListItemsSchema', many=True)
+
+class ListQueryArgsSchema(ma.Schema):
+    recipient = ma.fields.String()
+    meals = ma.fields.Nested('MealSchema', many=True)
+    list_items = ma.fields.Nested('ListItemsSchema', many=True)
+
 class MealQueryArgsSchema(ma.Schema):
     name = ma.fields.String()
     rating = ma.fields.Integer()
