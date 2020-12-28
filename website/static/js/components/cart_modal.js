@@ -23,7 +23,8 @@ class CartModal extends Component {
                     groceryListDictionary[recipe.ingredient.id] = {
                         "name": recipe.ingredient.name,
                         "quantity": recipe.quantity,
-                        "unit": recipe.ingredient.unit.name
+                        "unit": recipe.ingredient.unit.name,
+                        "aisle": recipe.ingredient.aisle
                     }
                 }
             })
@@ -35,7 +36,7 @@ class CartModal extends Component {
         }
 
         this.setState({
-            groceryList: groceryList
+            groceryList: groceryList.sort((a,b) => a.aisle - b.aisle)
         });
     }
 

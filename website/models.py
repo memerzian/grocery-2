@@ -15,6 +15,7 @@ class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
     unit_id = db.Column(db.Integer, db.ForeignKey('grc.unit.id'))
+    aisle = db.Column(db.Integer)
 
     unit = db.relationship('Unit', back_populates="ingredients", lazy='joined')
     recipes = db.relationship('Recipe', back_populates="ingredient")

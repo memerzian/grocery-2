@@ -8,6 +8,7 @@ class IngredientSchema(ma.Schema):
     id = ma.fields.Int(dump_only=True)
     name = ma.fields.String()
     unit = ma.fields.Nested('UnitSchema', dump_only=True)
+    aisle = ma.fields.Integer()
 
 class RecipeSchema(ma.Schema):
     id = ma.fields.Int(dump_only=True)
