@@ -1,5 +1,11 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
+
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Assets = require('./assets');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+
 
 const staticPath = path.resolve(__dirname, '../website/static') + '/';
 const buildPath = staticPath + 'build/';
@@ -12,22 +18,25 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.js?$/,
                 use: "babel-loader",
                 exclude: /node_modules/
             },
             {
                 test: /\.(svg|png|jpg|jpeg|gif)$/,
                 loader: "file-loader",
-
                 options: {
                     name: "[name].[ext]",
                     outputPath: "../../static/dist",
                 },
             },
             {
-                test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                test: /\.scss$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
             },
         ],
     },
@@ -55,4 +64,17 @@ module.exports = {
         path: buildPath + "js",
         filename: "[name].bundle.js",
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "../css/[name].css"
+        }),
+        new CopyWebpackPlugin(
+            Assets.map(asset => {
+                return {
+                    from: path.resolve(__dirname, `../node_modules/${asset}`),
+                    to: buildPath + 'vendor'
+                };
+            })
+        ),
+    ]
 };

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Basket2} from 'react-bootstrap-icons';
+import CartModal from './cart_modal';
 import Meal from './meal';
 
 class Meals extends Component {
@@ -7,7 +8,8 @@ class Meals extends Component {
         super(props);
 
         this.state = {
-            meals: []
+            meals: [],
+            cartModalIsOpen: false
         }
     }
 
@@ -22,6 +24,12 @@ class Meals extends Component {
             .then(data => this.setState({meals: data}));
     }
 
+    toggleCartModal() {
+        this.setState({
+            cartModalIsOpen: !this.state.cartModalIsOpen
+        });
+    }
+
     render() {
         return <React.Fragment>
             <div class="col">
@@ -30,7 +38,7 @@ class Meals extends Component {
                         Meals
                     </h5>
                     <span className="col text-right">
-                        <button type="button" className="btn btn-light text-dark border">
+                        <button type="button" className="btn btn-light text-dark border" onClick={() => this.toggleCartModal()}>
                             <Basket2 size="30"/>
                         </button>
                     </span>
@@ -40,6 +48,10 @@ class Meals extends Component {
                         <Meal key={meal.name} meal={meal}/>
                     )}
                 </div>
+                <CartModal
+                    isOpen={this.state.cartModalIsOpen}
+                    toggleModal={() => this.toggleCartModal()}
+                />
             </div>
         </React.Fragment>
     } 

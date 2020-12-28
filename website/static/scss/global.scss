@@ -1,0 +1,26 @@
+
+/*
+** Using this to update the theme colors in bootstrap. Bootstrapping the bootstrap
+*/
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+/*
+** You can also reference bootstrap colors here ie $gray-600 and make it a theme color
+** https://getbootstrap.com/docs/4.1/getting-started/theming/
+*/
+
+$theme-colors: (
+    "gold": #ffd700,
+    "light-green": #C4EFC4,
+    "gray": $gray-200
+);
+
+@import "bootstrap";
+// End of theme color updating.
+
+.no-overflow-field {
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+    overflow: hidden;
+}
