@@ -18,6 +18,16 @@ resources.register_blueprints(api, resources.blueprints)
 db.init_app(app)
 mail.init_app(app)
 
+def register_global_injects(app):
+    # For use in jinja templates
+    @app.context_processor
+    def _inject_globals():
+        return dict(
+            version=app.config.get('APP_VERSION', '?.?.?')
+        )
+
+register_global_injects(app)
+
 
 from website.views import front_end
 
