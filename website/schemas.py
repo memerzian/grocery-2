@@ -25,6 +25,7 @@ class ListItemsSchema(ma.Schema):
     name = ma.fields.String()
     quantity = ma.fields.Integer()
     unit = ma.fields.String()
+    aisle = ma.fields.Integer()
 
 class ListSchema(ma.Schema):
     recipient = ma.fields.String()
