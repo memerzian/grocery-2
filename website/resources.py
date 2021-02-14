@@ -13,14 +13,14 @@ meal_blueprint = Blueprint(
 @meal_blueprint.route('/')
 class Meals(MethodView):
     @meal_blueprint.arguments(MealQueryArgsSchema, location='query')
-    @meal_blueprint.response(MealSchema(many=True))
+    @meal_blueprint.response(200, MealSchema(many=True))
     def get(self, args):
         """List meals"""
         sql = db.session.query(Meal).all()
         return sql
 
     @meal_blueprint.arguments(MealSchema)
-    @meal_blueprint.response(MealSchema, code=201)
+    @meal_blueprint.response(201, MealSchema)
     def post(self, new_data):
         """Add a new meal"""
         item = Meal.create(**new_data)
@@ -28,7 +28,7 @@ class Meals(MethodView):
 
 @meal_blueprint.route('/<meal_id>')
 class MealsById(MethodView):
-    @meal_blueprint.response(MealSchema)
+    @meal_blueprint.response(200, MealSchema)
     def get(self, meal_id):
         """Get meal by ID"""
         try:
@@ -40,7 +40,7 @@ class MealsById(MethodView):
         return item
 
     @meal_blueprint.arguments(MealSchema)
-    @meal_blueprint.response(MealSchema)
+    @meal_blueprint.response(201, MealSchema)
     def put(self, update_data, meal_id):
         """Update existing meal"""
         try:
@@ -51,7 +51,7 @@ class MealsById(MethodView):
         item.commit()
         return item
 
-    @meal_blueprint.response(code=204)
+    @meal_blueprint.response(204)
     def delete(self, meal_id):
         """Delete meal"""
         try:
@@ -67,7 +67,7 @@ list_blueprint = Blueprint(
 @list_blueprint.route('/')
 class Lists(MethodView):
     @meal_blueprint.arguments(ListSchema)
-    @meal_blueprint.response(ListSchema, code=201)
+    @meal_blueprint.response(201, ListSchema)
     def post(self, list_data):
         """Sends grocery list email to the recipient"""
         send_email(**list_data)
