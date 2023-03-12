@@ -16,7 +16,7 @@ ssh into raspberry pi (ssh pi@ip address. Note: had to update firmware on router
 3) Create app directory (sudo mkdir app)
 4) Add "grocery-lister" as system user (sudo adduser --system --group grocery-lister --shell /bin/bash)
 5) Change ownership for app directory to user (sudo chown -R grocery-lister:grocery-lister /app)
-6) Switch to grocery-lister user
+6) Switch to grocery-lister user `sudo su grocery-lister`
 7) Generate ssh key and add to ssh agent for git: https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 8) Add as a deploy key in git. Repo > settings > deploy key. Copy public key
 9) Create repo in app directory (mkdir repo)
@@ -29,5 +29,7 @@ ssh into raspberry pi (ssh pi@ip address. Note: had to update firmware on router
 15) Run app with `flask run --host=0.0.0.0` after updating env variable: `export FLASK_APP=grocery.py`
 - might need to open up the 5000 port with ufw (also install ufw on raspberry pi)
 16) Access from another computer (can check that the 5000 port is open with nmap `nmap <ip address>`)
-17) npm ....
+17) npm install (had to do `sudo npm i -g npm` with the sudo user for some reason b/c I got an error)
+18) Run `npx webpack --watch --config webpack/webpack.config.js --mode development` in top level directory to build files with webpack
+19) Install webpack globally `sudo npm i webpack -g` and the webpack cli `sudo npm i webpack-cli -g`
 

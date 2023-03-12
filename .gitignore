@@ -3,4 +3,3 @@
 .flaskenv
 *.pyc
 node_modules
-website/static/build
