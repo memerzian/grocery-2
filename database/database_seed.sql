@@ -51,33 +51,30 @@ CREATE TABLE grc.recipe
         ON DELETE NO ACTION
 );
 
-INSERT INTO grc.unit(id, name)
-	VALUES (1, 'Each'),
-	(2, 'Tablespoon'),
-	(3, 'Cup'),
-	(4, 'Clove');
+INSERT INTO grc.unit(name)
+	VALUES ('Each'),
+	('Tablespoon'),
+	('Cup'),
+	('Clove');
 
-INSERT INTO grc.ingredient (id, name, unit_id, aisle)
-	VALUES (1, 'Olive Oil', 2, 3),
-	(2, 'Farro', 3, 3),
-	(3, 'Lemon', 1, 1),
-	(4, 'Garlic', 4, 1);
+INSERT INTO grc.ingredient (name, unit_id, aisle)
+	VALUES ('Olive Oil', 2, 3),
+	('Farro', 3, 3),
+	('Lemon', 1, 1),
+	('Garlic', 4, 1);
 	
-INSERT INTO grc.meal(id, name, rating)
-	VALUES (1, 'West African Peanut Soup', 5),
-	(2, 'Carrots and Tahini', 5),
-	(3, 'Veggie Burgers', 5),
-	(4, 'Chipolte Salad', 4),
-	(5, 'Mexican Quinoa', 5),
-	(6, 'Thai Peanut', 5),
-	(7, 'Lasagna Soup', 5),
-	(8, 'Mojo bowls', 5),
-	(9, 'Moroccan Butternut Coucous Stew', 4),
-	(10, 'Roasted Vegetable Tangine', 5),
-	(11, 'Breakfast Burritos', 5),
-	(12, 'Enchiladas', 5);
+INSERT INTO grc.meal(name, rating)
+	VALUES ('West African Peanut Soup', 5),
+	('Carrots and Tahini', 5),
+	('Veggie Burgers', 5),
+	('Chipolte Salad', 4),
+	('Mexican Quinoa', 5),
+	('Thai Peanut', 5),
+	('Lasagna Soup', 5),
+	('Mojo bowls', 5),
+	('Moroccan Butternut Coucous Stew', 4),
+	('Roasted Vegetable Tangine', 5),
+	('Breakfast Burritos', 5),
+	('Enchiladas', 5);
 	
-INSERT INTO grc.recipe(meal_id, ingredient_id, quantity)
-	VALUES (1, 1, 1),
-	(2, 1, 1);
 	

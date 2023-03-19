@@ -11,17 +11,17 @@ class Meal extends Component {
         return <React.Fragment>
             <div className="col mt-3">
                 <div className="card">
-                    <div className="card-header bg-light-green flex-row d-flex">
-                        <span className="no-overflow-field col-10">
+                    <div className="card-header bg-dark flex-row d-flex">
+                        <span className="no-overflow-field col text-light">
                             {this.props.meal.name}
                         </span>
-                        <span className="col">
+                        <span className="col-1 ms-auto">
                             {
                                 this.props.isInCart ?
-                                <button type="button" className="btn btn-sm btn-danger p-0" onClick={() => this.props.addMealToCart(this.props.meal)}>
+                                <button type="button" className="btn btn-sm btn-danger p-0 text-light" onClick={() => this.props.addMealToCart(this.props.meal)}>
                                     <X size="25"/>
                                 </button> :
-                                <button type="button" className="btn btn-sm btn-dark p-0" onClick={() => this.props.addMealToCart(this.props.meal)}>
+                                <button type="button" className="btn btn-sm btn-light p-0 text-light" onClick={() => this.props.addMealToCart(this.props.meal)}>
                                     <Plus size="25"/>
                                 </button> 
                             }

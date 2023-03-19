@@ -42,18 +42,18 @@ class Meals extends Component {
     render() {
         return <React.Fragment>
             <div className="col">
-                <div className="border-bottom py-2 d-flex flex-row align-items-center">
-                    <h5 className="col">
+                <div className="border-bottom py-2 d-flex flex-row align-items-end">
+                    <h5 className="col ms-2">
                         Meals
                     </h5>
-                    <span className="col text-right">
+                    <span className="col text-end me-2">
                         <button type="button" className="btn btn-light text-dark border bg-gray" onClick={() => this.toggleCartModal()}>
                             <Basket2 size="30"/>
-                            <span className="ml-1 badge badge-secondary">{this.state.mealsInCart.length}</span>
+                            <span className="ms-1 badge bg-secondary">{this.state.mealsInCart.length}</span>
                         </button>
                     </span>
                 </div>
-                <div className="row row-cols-5 mt-2">
+                <div className="row row-cols-4 mt-2 ms-2 me-2">
                     {this.state.meals.map(meal =>
                         <Meal 
                             key={meal.name} 
