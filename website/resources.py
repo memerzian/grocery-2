@@ -23,7 +23,10 @@ class Meals(MethodView):
     @meal_blueprint.response(201, MealSchema)
     def post(self, new_data):
         """Add a new meal"""
-        item = Meal.create(**new_data)
+        meal = Meal(**new_data)
+        item = db.session.add(meal)
+        db.session.flush()
+        db.session.commit()
         return item
 
 @meal_blueprint.route('/<meal_id>')
@@ -40,24 +43,29 @@ class MealsById(MethodView):
         return item
 
     @meal_blueprint.arguments(MealSchema)
-    @meal_blueprint.response(201, MealSchema)
+    @meal_blueprint.response(200, MealSchema)
     def put(self, update_data, meal_id):
         """Update existing meal"""
         try:
             item = Meal.query.get(meal_id)
         except LookupError:
             abort(404, message='Item not found.')
-        item.update(update_data)
-        item.commit()
+        for key, value in update_data.items():
+            setattr(item, key, value) 
+        db.session.flush()
+        db.session.commit()
         return item
 
     @meal_blueprint.response(204)
     def delete(self, meal_id):
         """Delete meal"""
         try:
-            Meal.delete(meal_id)
+            item = Meal.query.get(meal_id)
         except LookupError:
             abort(404, message='Item not found.')
+        db.session.delete(item)
+        db.session.flush()
+        db.session.commit()
 
 list_blueprint = Blueprint(
     'lists', 'lists', url_prefix='/api/1/lists',

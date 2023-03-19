@@ -33,3 +33,18 @@ ssh into raspberry pi (ssh pi@ip address. Note: had to update firmware on router
 18) Run `npx webpack --watch --config webpack/webpack.config.js --mode development` in top level directory to build files with webpack
 19) Install webpack globally `sudo npm i webpack -g` and the webpack cli `sudo npm i webpack-cli -g`
 
+webpack is failing locally, but still builds
+
+record screen info
+
+
+Things to do:
+- Fix email modal issue that causes website to fail when sending email
+- Fix add/remove items from cart
+- Allow adding/removing ingredients to meals
+- Search for meals
+- Allow adding meals for the week
+- Allow permanent creation of grocery list
+- Allow setting a season for the meal
+- Allow Adding/removing ingredients
+- Allow Adding/removing units
