@@ -47,7 +47,7 @@ class Meals extends Component {
                         Meals
                     </h5>
                     <span className="col text-end me-2">
-                        <button type="button" className="btn btn-light text-dark border bg-gray" onClick={() => this.toggleCartModal()}>
+                        <button type="button" className="btn btn-light text-dark border" onClick={() => this.toggleCartModal()}>
                             <Basket2 size="30"/>
                             <span className="ms-1 badge bg-secondary">{this.state.mealsInCart.length}</span>
                         </button>

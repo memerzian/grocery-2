@@ -4,6 +4,7 @@
 */
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
 
 /*
 ** You can also reference bootstrap colors here ie $gray-600 and make it a theme color
@@ -16,6 +17,12 @@ $theme-colors: (
     "gray": $gray-200,
     "purple": $purple
 );
+
+// Define your new font family
+$my-font-family: 'Raleway', sans-serif;
+
+// Update Bootstrap's font family variable
+$font-family-base: $my-font-family;
 
 @import "bootstrap";
 // End of theme color updating.
